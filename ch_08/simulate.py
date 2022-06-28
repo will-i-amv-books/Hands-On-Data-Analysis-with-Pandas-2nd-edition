@@ -1,20 +1,23 @@
 """Script for simulating login attempts."""
-
 import argparse
 import datetime as dt
 import os
 import logging
 import random
-
 import login_attempt_simulator as sim
+
 
 # Logging configuration
 FORMAT = '[%(levelname)s] [ %(name)s ] %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT)
 logger = logging.getLogger(os.path.basename(__file__))
 
+
 def get_simulation_file_path(path_provided, directory, default_file):
-    """Get the path to the file creating the directory and using the default if necessary."""
+    """
+    Get the path to the file creating the directory 
+    and using the default if necessary.
+    """
     if path_provided:
         file = path_provided
     else:
@@ -23,22 +26,28 @@ def get_simulation_file_path(path_provided, directory, default_file):
         file = os.path.join(directory, default_file)
     return file
 
+
 def get_user_base_file_path(path_provided, default_file):
     """Get the path for a user_data directory file."""
     return get_simulation_file_path(path_provided, 'user_data', default_file)
+
 
 def get_log_file_path(path_provided, default_file):
     """Get the path for a logs directory file."""
     return get_simulation_file_path(path_provided, 'logs', default_file)
 
+
 if __name__ == '__main__':
     # command line argument parsing
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        'days', type=float, help='number of days to simulate from start'
+        'days', 
+        type=float, 
+        help='number of days to simulate from start'
     )
     parser.add_argument(
-        'start_date', type=str,
+        'start_date', 
+        type=str,
         help="datetime to start in the form 'YYYY-MM-DD' or 'YYYY-MM-DD-HH'"
     )
     parser.add_argument(
@@ -76,7 +85,8 @@ if __name__ == '__main__':
         # create one or more IP addresses per user and save mapping to file
         valid_users = sim.utils.get_valid_users(user_base_file)
         sim.utils.save_user_ips(
-            sim.utils.assign_ip_addresses(valid_users), user_ip_mapping_file
+            sim.utils.assign_ip_addresses(valid_users), 
+            user_ip_mapping_file
         )
 
     try:
